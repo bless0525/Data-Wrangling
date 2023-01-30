@@ -1,0 +1,102 @@
+---
+title: "Data wrangling"
+author: "Blessing Ildefonso"
+date: "2023-01-30"
+output: html_document
+---
+
+First, we are going to load the tidyverse package
+
+```{r}
+library(tidyverse)
+```
+
+# creating a tibble
+
+```{r}
+x <- tribble(~number, ~letter,   ~greek,
+              1,     "a",  "alpha",
+              2,     "b",   "beta",
+              3,     "c",  "gamma")
+```
+
+```{r}
+y <- tibble(number = c(1, 2, 3), 
+       letter = c("a", "b", "c"),
+       greek = c("alpha", "beta", "gamma"))
+```
+# Convert a data frame to a tibble
+
+```{r}
+iris
+```
+
+```{r}
+x <- iris # iris is still a data frame
+```
+
+```{r}
+x <- as_tibble(x) # this will make x a tribble
+```
+
+```{r}
+class(x) # Verifying if x is already  a tibble
+```
+
+# Convert a tibble to a data frame
+
+```{r}
+z <- table1
+```
+
+```{r}
+z
+```
+
+```{r}
+class(z)
+```
+
+```{r}
+z <- as.data.frame(table1)
+```
+
+# Inspect every cell of a table
+
+```{r}
+view(storms)
+```
+
+```{r}
+s <- storms
+```
+
+# Spread a pair of columns into a field of cells
+
+```{r}
+table2 #untidy data
+```
+
+```{r}
+table2_tidy <- table2 %>% # and then
+  spread(key = type, value = count)
+table2_tidy
+```
+
+# Gather a field of cells into a pair of columns
+
+![](wide-to-long.png)
+
+# Separate a column into new columns
+
+```{r}
+table3 %>% 
+  separate(col = rate, into = c("cases", "population"), 
+           sep = "/", convert = TRUE)
+```
+
+```{r}
+table3_separate <- table3 %>% 
+  separate(col = rate, into = c("cases", "population"), 
+           sep = "/", convert = TRUE)
+table3_separate
